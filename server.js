@@ -1,5 +1,10 @@
 const express = require("express");
 const path = require("path");
+const {
+  readFromFile,
+  readAndAppend,
+  writeToFile,
+} = require('./helper/filehelper.js');
 
 // This sets up the Express App
 const app = express();
@@ -17,28 +22,27 @@ app.use(express.static("public"));
 //refer to class activity 07-Ins_GET-Fetch/server.js for a get route to render a public html file.
 
 app.get('/notes', (req, res) =>
-  res.sendFile(path.join(__dirname, '/public/notes.html'))
+  res.sendFile(path.join(__dirname, 'public/notes.html'))
 );
 
 //TODO: GET /api/notes should read the db.json file and return all saved notes as JSON.
 //refer to class activity 28-Stu_Mini-Project/Main/routes/tips.js for a get route to render data from a file
 // GET Route for retrieving all the tips
 app.get('/api/notes', (req, res) => {
-  readFromFile('../db/db.json').then((data) => res.json(JSON.parse(data)));
-});
+  readFromFile('db/db.json').then((data) => res.json(JSON.parse(data)));
+});      
 
 //TODO: POST /api/notes should receive a new note to save on the request body, add it to the db.json file, and then return the new note to the client. You'll need to find a way to give each note a unique id when it's saved (look into npm packages that could do this for you).
 //refer to class activity 28-Stu_Mini-Project/Main/routes/tips.js for a POST route to take in a req.body and add to a .json file.
-tips.post('/', (req, res) => {
+app.post('/api/notes', (req, res) => {
   console.log(req.body);
 
-  const { username, topic, tip } = req.body;
+  const {title, text } = req.body;
 
   if (req.body) {
     const newNote = {
       title,
       text,
-      topic,
     };
 
     readAndAppend(newNote, './db/db.json');
@@ -51,7 +55,7 @@ tips.post('/', (req, res) => {
 //TODO: GET * should return the index.html file.
 //refer to class activity 07-Ins_GET-Fetch/server.js for a get route to render a public html file.
 app.get('*', (req, res) =>
-  res.sendFile(path.join(__dirname, 'public/index.html'))
+  res.sendFile(path.join(__dirname, 'public/index.html')) 
 );1
 
 
