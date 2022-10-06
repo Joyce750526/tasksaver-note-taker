@@ -51,22 +51,22 @@ app.post("/api/notes", (req, res) => {
   }
 });
 
-// DELETE Route for a specific tip (needs to add delete button to make functional)
-app.delete("/api/notes/:id", (req, res) => {
-  const tipId = req.params.id;
-  readFromFile("./db/db.json")
-    .then((data) => JSON.parse(data))
-    .then((json) => {
-      // Make a new array of all tips except the one with the ID provided in the URL
-      const result = json.filter((tip) => tip.tip_id !== tipId);
+// // DELETE Route for a specific tip (needs to add delete button to make functional)
+// app.delete("/api/notes/:id", (req, res) => {
+//   const tipId = req.params.id;
+//   readFromFile("./db/db.json")
+//     .then((data) => JSON.parse(data))
+//     .then((json) => {
+//       // Make a new array of all tips except the one with the ID provided in the URL
+//       const result = json.filter((note) => tip.tip_id !== tipId);
 
-      // Save that array to the filesystem
-      writeToFile("./db/tips.json", result);
+//       // Save that array to the filesystem
+//       writeToFile("./db/tips.json", result);
 
-      // Respond to the DELETE request
-      res.json(`Item ${tipId} has been deleted 🗑️`);
-    });
-});
+//       // Respond to the DELETE request
+//       res.json(`Item ${tipId} has been deleted 🗑️`);
+//     });
+// });
 
 //TODO: GET * should return the index.html file.
 //refer to class activity 07-Ins_GET-Fetch/server.js for a get route to render a public html file.
